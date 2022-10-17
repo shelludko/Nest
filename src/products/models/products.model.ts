@@ -14,6 +14,7 @@ interface ProductCreationAttributes {
   name: string;
   description: string;
   price: number;
+  image: string;
   categoryId: number;
   userId: number;
 }
@@ -65,7 +66,6 @@ export class Product extends Model<Product, ProductCreationAttributes> {
   @ApiProperty({ example: 'image.png', description: 'Product image' })
   @Column({
     type: DataType.STRING,
-    allowNull: false,
   })
   image: string;
 

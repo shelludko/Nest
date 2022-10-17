@@ -9,7 +9,9 @@ import {
   Patch,
   Post,
   Req,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ProductService } from './products.service';
@@ -20,6 +22,7 @@ import { Product } from './models/products.model';
 import { Roles, RolesList } from '../auth/decorators/role-auth.decorator';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('Products')
 @Controller('products')
@@ -52,12 +55,13 @@ export class ProductController {
 
   @ApiOperation({ summary: 'Create product' })
   @ApiResponse({ status: 201, type: Product })
-  @Roles(RolesList.SELLER)
+  @Roles(RolesList.ADMIN, RolesList.SELLER)
   @UseGuards(RolesGuard, JwtAuthGuard)
   @Post('create')
+  @UseInterceptors(FileInterceptor('image'))
   @HttpCode(201)
-  async createProduct(@Body() dto: CreateProductDto) {
-    return this.productService.createProduct(dto);
+  async createProduct(@Body() dto: CreateProductDto, @UploadedFile() image) {
+    return this.productService.createProduct(dto, image);
   }
 
   @ApiOperation({ summary: 'Update product' })

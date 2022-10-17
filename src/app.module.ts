@@ -11,11 +11,17 @@ import { Product } from './products/models/products.model';
 import { Category } from './categories/models/categories.model';
 import { ProductModule } from './products/products.module';
 import { CategoryModule } from './categories/categories.module';
+import { FilesModule } from './files/files.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: path.resolve(__dirname, 'static'),
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
@@ -32,6 +38,7 @@ import { CategoryModule } from './categories/categories.module';
     AuthModule,
     ProductModule,
     CategoryModule,
+    FilesModule,
   ],
   controllers: [],
   providers: [],

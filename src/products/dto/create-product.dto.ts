@@ -24,7 +24,7 @@ export class CreateProductDto {
 
   @ApiProperty({ example: 'image.png', description: 'Product image' })
   @IsString({ message: 'Image should be string' })
-  readonly image: string;
+  image: string;
 
   @ApiProperty({ example: 1, description: 'Product category' })
   @IsNumber()
