@@ -22,6 +22,10 @@ export class CreateProductDto {
   @IsNotEmpty({ message: 'Price required' })
   readonly price: number;
 
+  @ApiProperty({ example: 'image.png', description: 'Product image' })
+  @IsString({ message: 'Image should be string' })
+  readonly image: string;
+
   @ApiProperty({ example: 1, description: 'Product category' })
   @IsNumber()
   @IsNotEmpty({ message: 'CategoryID required' })

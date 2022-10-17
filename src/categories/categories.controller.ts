@@ -16,7 +16,7 @@ import { Roles, RolesList } from 'src/auth/decorators/role-auth.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Product } from 'src/products/models/products.model';
-import { PRODUCT_NOT_FOUND_ERROR } from 'src/products/products.constants';
+import { CATEGORY_NOT_FOUND_ERROR } from './categories.constants';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-categories.dto';
 import { UpdateCategoryDto } from './dto/update-categories.dto';
@@ -46,7 +46,7 @@ export class CategoriesController {
   async findProduct(@Param('id') id: number) {
     const category = await this.categoriesService.findCategory(id);
     if (!category) {
-      throw new NotFoundException(PRODUCT_NOT_FOUND_ERROR);
+      throw new NotFoundException(CATEGORY_NOT_FOUND_ERROR);
     }
     return await this.categoriesService.findCategory(category.id);
   }
@@ -74,7 +74,7 @@ export class CategoriesController {
   ) {
     const category = await this.categoriesService.findCategory(id);
     if (!category) {
-      throw new NotFoundException(PRODUCT_NOT_FOUND_ERROR);
+      throw new NotFoundException(CATEGORY_NOT_FOUND_ERROR);
     }
     await this.categoriesService.updateCategory(category.id, dto);
     return req.body;
@@ -89,7 +89,7 @@ export class CategoriesController {
   async deleteProduct(@Param('id') id: number) {
     const category = await this.categoriesService.findCategory(id);
     if (!category) {
-      throw new NotFoundException(PRODUCT_NOT_FOUND_ERROR);
+      throw new NotFoundException(CATEGORY_NOT_FOUND_ERROR);
     }
     await this.categoriesService.deleteCategory(category.id);
     return `Category with ID ${category.id} deleted successfully`;

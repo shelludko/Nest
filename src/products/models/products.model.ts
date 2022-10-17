@@ -62,6 +62,13 @@ export class Product extends Model<Product, ProductCreationAttributes> {
   })
   price: number;
 
+  @ApiProperty({ example: 'image.png', description: 'Product image' })
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  image: string;
+
   @ApiProperty({ example: 1, description: 'Category ID' })
   @ForeignKey(() => Category)
   @Column({
