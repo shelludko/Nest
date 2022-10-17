@@ -21,7 +21,7 @@ export class User extends Model<User, UserCreationAttributes> {
   })
   id: number;
 
-  @ApiProperty({ example: 'vitaliy@gmail.com', description: 'User email' })
+  @ApiProperty({ example: 'user@gmail.com', description: 'User email' })
   @Column({
     type: DataType.STRING,
     unique: true,

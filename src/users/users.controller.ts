@@ -1,7 +1,8 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Roles } from 'src/auth/decorators/role-auth.decorator';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Roles, RolesList } from '../auth/decorators/role-auth.decorator';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
 import { AddRoleDto } from './dto/add-role.dto';
 import { BanUserDto } from './dto/ban-user.dto';
 import { User } from './models/users.model';
@@ -14,8 +15,8 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: 200, type: [User] })
-  @Roles('ADMIN')
-  @UseGuards(RolesGuard)
+  @Roles(RolesList.ADMIN)
+  @UseGuards(RolesGuard, JwtAuthGuard)
   @Post()
   async getAll() {
     return await this.userService.getAllUsers();
@@ -23,8 +24,8 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Issue a role' })
   @ApiResponse({ status: 200 })
-  @Roles('ADMIN')
-  @UseGuards(RolesGuard)
+  @Roles(RolesList.ADMIN)
+  @UseGuards(RolesGuard, JwtAuthGuard)
   @Post('/role')
   async addRole(@Body() dto: AddRoleDto) {
     return await this.userService.addRole(dto);
@@ -32,8 +33,8 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Ban user' })
   @ApiResponse({ status: 200 })
-  @Roles('ADMIN')
-  @UseGuards(RolesGuard)
+  @Roles(RolesList.ADMIN)
+  @UseGuards(RolesGuard, JwtAuthGuard)
   @Post('/ban')
   async banUser(@Body() dto: BanUserDto) {
     return await this.userService.banUser(dto);
@@ -41,8 +42,8 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Unban user' })
   @ApiResponse({ status: 200 })
-  @Roles('ADMIN')
-  @UseGuards(RolesGuard)
+  @Roles(RolesList.ADMIN)
+  @UseGuards(RolesGuard, JwtAuthGuard)
   @Post('/unban')
   async unBanUser(@Body() dto: BanUserDto) {
     return await this.userService.unBanUser(dto);
