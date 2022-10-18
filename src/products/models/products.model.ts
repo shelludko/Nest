@@ -9,15 +9,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { Category } from '../../categories/models/categories.model';
 import { User } from '../../users/models/users.model';
-
-interface ProductCreationAttributes {
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  categoryId: number;
-  userId: number;
-}
+import { ProductCreationAttributes } from '../interfaces/product-create.interface';
 
 @Table({ tableName: 'products' })
 export class Product extends Model<Product, ProductCreationAttributes> {
