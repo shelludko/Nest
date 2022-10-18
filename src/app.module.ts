@@ -21,7 +21,7 @@ import * as path from 'path';
       envFilePath: `.${process.env.NODE_ENV}.env`,
     }),
     ServeStaticModule.forRoot({
-      rootPath: path.resolve(__dirname, 'static'),
+      rootPath: path.resolve(__dirname, '../src/', 'static'),
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
@@ -40,7 +40,5 @@ import * as path from 'path';
     CategoryModule,
     FilesModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}

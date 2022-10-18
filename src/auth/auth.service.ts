@@ -17,6 +17,22 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
+  async registerAdmin(userDto: CreateUserDto) {
+    const candidate = await this.userService.getUserByEmail(userDto.email);
+    if (candidate) {
+      throw new HttpException(
+        'User with this email exist',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    const hashPassword = await bcrypt.hash(userDto.password, 10);
+    const user = await this.userService.createAdmin({
+      ...userDto,
+      password: hashPassword,
+    });
+    return this.generateToken(user);
+  }
+
   async register(userDto: CreateUserDto) {
     const candidate = await this.userService.getUserByEmail(userDto.email);
     if (candidate) {

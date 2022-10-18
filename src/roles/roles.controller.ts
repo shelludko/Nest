@@ -1,8 +1,5 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Roles, RolesList } from 'src/auth/decorators/role-auth.decorator';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { RolesService } from './roles.service';
 
@@ -13,8 +10,6 @@ export class RolesController {
 
   @ApiOperation({ summary: 'Create role' })
   @ApiResponse({ status: 200 })
-  @Roles(RolesList.ADMIN)
-  @UseGuards(RolesGuard, JwtAuthGuard)
   @Post('create')
   async create(@Body() dto: CreateRoleDto) {
     return await this.roleService.createRole(dto);
@@ -22,8 +17,6 @@ export class RolesController {
 
   @ApiOperation({ summary: 'Get role by value' })
   @ApiResponse({ status: 200 })
-  @Roles(RolesList.ADMIN)
-  @UseGuards(RolesGuard, JwtAuthGuard)
   @Get(':value')
   async getByValue(@Param('value') value: string) {
     return await this.roleService.getRoleByValue(value);

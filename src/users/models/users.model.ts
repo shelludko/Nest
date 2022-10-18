@@ -10,7 +10,7 @@ import { Role } from '../../roles/models/roles.model';
 import { UserRoles } from '../../roles/models/user-roles.model';
 import { UserCreationAttributes } from '../interfaces/user-creation.interface';
 
-@Table({ tableName: 'users', timestamps: true })
+@Table({ tableName: 'users' })
 export class User extends Model<User, UserCreationAttributes> {
   @ApiProperty({ example: 1, description: 'User ID' })
   @Column({

@@ -55,12 +55,15 @@ export class ProductController {
 
   @ApiOperation({ summary: 'Create product' })
   @ApiResponse({ status: 201, type: Product })
-  @Roles(RolesList.ADMIN, RolesList.SELLER)
+  @Roles(RolesList.SELLER)
   @UseGuards(RolesGuard, JwtAuthGuard)
   @Post('create')
   @UseInterceptors(FileInterceptor('image'))
   @HttpCode(201)
-  async createProduct(@Body() dto: CreateProductDto, @UploadedFile() image) {
+  async createProduct(
+    @Body() dto: CreateProductDto,
+    @UploadedFile() image: Express.Multer.File,
+  ) {
     return this.productService.createProduct(dto, image);
   }
 

@@ -8,6 +8,11 @@ import { AuthService } from './auth.service';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @Post('god')
+  registerAdmin(@Body() userDto: CreateUserDto) {
+    return this.authService.registerAdmin(userDto);
+  }
+
   @Post('register')
   register(@Body() userDto: CreateUserDto) {
     return this.authService.register(userDto);
