@@ -23,9 +23,17 @@ export class UsersService {
     return user;
   }
 
-  async createUser(dto: CreateUserDto) {
+  async createSeller(dto: CreateUserDto) {
     const user = await this.userRepository.create(dto);
-    const role = await this.roleService.getRoleByValue(RolesList.USER);
+    const role = await this.roleService.getRoleByValue(RolesList.SELLER);
+    await user.$set('roles', [role.id]);
+    user.roles = [role];
+    return user;
+  }
+
+  async createCustomer(dto: CreateUserDto) {
+    const user = await this.userRepository.create(dto);
+    const role = await this.roleService.getRoleByValue(RolesList.CUSTOMER);
     await user.$set('roles', [role.id]);
     user.roles = [role];
     return user;

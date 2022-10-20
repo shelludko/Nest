@@ -13,9 +13,14 @@ export class AuthController {
     return this.authService.registerAdmin(userDto);
   }
 
-  @Post('register')
-  register(@Body() userDto: CreateUserDto) {
-    return this.authService.register(userDto);
+  @Post('register-seller')
+  registerSeller(@Body() userDto: CreateUserDto) {
+    return this.authService.registerSeller(userDto);
+  }
+
+  @Post('register-customer')
+  registerCustomer(@Body() userDto: CreateUserDto) {
+    return this.authService.registerCustomer(userDto);
   }
 
   @Post('login')
