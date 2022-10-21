@@ -5,5 +5,6 @@ export interface ICart {
   quantity: number;
   totalPrice: number;
   productId: number;
+  userId: number;
   image: string;
 }

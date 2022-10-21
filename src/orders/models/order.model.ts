@@ -6,12 +6,9 @@ import {
   DataType,
   ForeignKey,
   Table,
-  BelongsToMany,
 } from 'sequelize-typescript';
-import { Product } from 'src/products/models/products.model';
 import { User } from 'src/users/models/users.model';
 import { IOrder } from '../interfaces/order.interface';
-import { OrderItems } from './order-items.model';
 
 @Table({ tableName: 'orders' })
 export class Order extends Model<Order, IOrder> {
@@ -44,11 +41,11 @@ export class Order extends Model<Order, IOrder> {
     description: 'Date of create',
   })
   @Column({
-    type: DataType.DATE,
+    type: DataType.STRING,
     allowNull: false,
     defaultValue: 1,
   })
-  createdDate: Date;
+  createdDate: string;
 
   @ApiProperty({ example: false, description: 'Is paid' })
   @Column({
@@ -57,9 +54,6 @@ export class Order extends Model<Order, IOrder> {
     defaultValue: false,
   })
   isPaid: boolean;
-
-  @BelongsToMany(() => Product, () => OrderItems)
-  products: Product[];
 
   @BelongsTo(() => User)
   user: User;

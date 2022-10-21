@@ -8,6 +8,7 @@ import {
   BelongsTo,
 } from 'sequelize-typescript';
 import { Product } from 'src/products/models/products.model';
+import { User } from 'src/users/models/users.model';
 import { ICart } from '../interfaces/cart.interface';
 
 @Table({ tableName: 'cart' })
@@ -58,6 +59,14 @@ export class Cart extends Model<Cart, ICart> {
   })
   productId: number;
 
+  @ApiProperty({ example: 1, description: 'User ID' })
+  @ForeignKey(() => User)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  userId: number;
+
   @ApiProperty({
     example: '63e74470-735f-4568-8663-37b677bfcac0.jpg',
     description: 'Product image',
@@ -70,4 +79,7 @@ export class Cart extends Model<Cart, ICart> {
 
   @BelongsTo(() => Product)
   product: Product;
+
+  @BelongsTo(() => User)
+  user: User;
 }
