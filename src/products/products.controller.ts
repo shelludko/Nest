@@ -64,7 +64,7 @@ export class ProductController {
     @Body() dto: CreateProductDto,
     @UploadedFile() image: Express.Multer.File,
   ) {
-    return this.productService.createProduct(dto, image);
+    return await this.productService.createProduct(dto, image);
   }
 
   @ApiOperation({ summary: 'Update product' })

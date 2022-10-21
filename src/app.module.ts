@@ -14,6 +14,11 @@ import { CategoryModule } from './categories/categories.module';
 import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
+import { Order } from './orders/models/order.model';
+import { OrdersModule } from './orders/orders.module';
+import { OrderItems } from './orders/models/order-items.model';
+import { CartModule } from './cart/cart.module';
+import { Cart } from './cart/models/cart.model';
 
 @Module({
   imports: [
@@ -30,7 +35,16 @@ import * as path from 'path';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, UserRoles, Product, Category],
+      models: [
+        User,
+        Role,
+        UserRoles,
+        Product,
+        Category,
+        Order,
+        OrderItems,
+        Cart,
+      ],
       autoLoadModels: true,
     }),
     UsersModule,
@@ -39,6 +53,8 @@ import * as path from 'path';
     ProductModule,
     CategoryModule,
     FilesModule,
+    OrdersModule,
+    CartModule,
   ],
 })
 export class AppModule {}

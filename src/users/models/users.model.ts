@@ -3,11 +3,9 @@ import {
   BelongsToMany,
   Column,
   DataType,
-  HasMany,
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Product } from 'src/products/models/products.model';
 import { Role } from '../../roles/models/roles.model';
 import { UserRoles } from '../../roles/models/user-roles.model';
 import { UserCreationAttributes } from '../interfaces/user-creation.interface';
@@ -51,9 +49,6 @@ export class User extends Model<User, UserCreationAttributes> {
     allowNull: true,
   })
   banReason: string;
-
-  @HasMany(() => Product)
-  products: Product[];
 
   @BelongsToMany(() => Role, () => UserRoles)
   roles: Role[];
