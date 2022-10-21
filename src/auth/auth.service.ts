@@ -33,7 +33,7 @@ export class AuthService {
     return this.generateToken(user);
   }
 
-  async register(userDto: CreateUserDto) {
+  async registerSeller(userDto: CreateUserDto) {
     const candidate = await this.userService.getUserByEmail(userDto.email);
     if (candidate) {
       throw new HttpException(
@@ -42,7 +42,23 @@ export class AuthService {
       );
     }
     const hashPassword = await bcrypt.hash(userDto.password, 10);
-    const user = await this.userService.createUser({
+    const user = await this.userService.createSeller({
+      ...userDto,
+      password: hashPassword,
+    });
+    return this.generateToken(user);
+  }
+
+  async registerCustomer(userDto: CreateUserDto) {
+    const candidate = await this.userService.getUserByEmail(userDto.email);
+    if (candidate) {
+      throw new HttpException(
+        'User with this email exist',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    const hashPassword = await bcrypt.hash(userDto.password, 10);
+    const user = await this.userService.createCustomer({
       ...userDto,
       password: hashPassword,
     });

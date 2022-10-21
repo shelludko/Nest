@@ -23,9 +23,17 @@ export class UsersService {
     return user;
   }
 
-  async createUser(dto: CreateUserDto) {
+  async createSeller(dto: CreateUserDto) {
     const user = await this.userRepository.create(dto);
-    const role = await this.roleService.getRoleByValue(RolesList.USER);
+    const role = await this.roleService.getRoleByValue(RolesList.SELLER);
+    await user.$set('roles', [role.id]);
+    user.roles = [role];
+    return user;
+  }
+
+  async createCustomer(dto: CreateUserDto) {
+    const user = await this.userRepository.create(dto);
+    const role = await this.roleService.getRoleByValue(RolesList.CUSTOMER);
     await user.$set('roles', [role.id]);
     user.roles = [role];
     return user;
@@ -41,6 +49,14 @@ export class UsersService {
   async getUserByEmail(email: string) {
     const user = await this.userRepository.findOne({
       where: { email },
+      include: { all: true },
+    });
+    return user;
+  }
+
+  async getUserById(id: number) {
+    const user = await this.userRepository.findOne({
+      where: { id },
       include: { all: true },
     });
     return user;

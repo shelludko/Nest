@@ -5,11 +5,12 @@ import {
   DataType,
   ForeignKey,
   BelongsTo,
+  HasMany,
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 import { Category } from '../../categories/models/categories.model';
-import { User } from '../../users/models/users.model';
 import { ProductCreationAttributes } from '../interfaces/product-create.interface';
+import { Cart } from 'src/cart/models/cart.model';
 
 @Table({ tableName: 'products' })
 export class Product extends Model<Product, ProductCreationAttributes> {
@@ -72,20 +73,9 @@ export class Product extends Model<Product, ProductCreationAttributes> {
   })
   categoryId: number;
 
-  @ApiProperty({ example: 1, description: 'User ID' })
-  @ForeignKey(() => User)
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
-  })
-  userId: number;
-
   @BelongsTo(() => Category)
   category: Category;
 
-  @BelongsTo(() => User)
-  user: User;
+  @HasMany(() => Cart)
+  carts: Cart[];
 }
