@@ -11,10 +11,12 @@ import { UsersService } from 'src/users/users.service';
 import { User } from 'src/users/models/users.model';
 import { RolesService } from 'src/roles/roles.service';
 import { Role } from 'src/roles/models/roles.model';
+import { Category } from 'src/categories/models/categories.model';
+import { CategoriesService } from 'src/categories/categories.service';
 
 @Module({
   imports: [
-    SequelizeModule.forFeature([Cart, Product, User, Role]),
+    SequelizeModule.forFeature([Cart, Product, User, Role, Category]),
     AuthModule,
   ],
   controllers: [CartController],
@@ -24,6 +26,7 @@ import { Role } from 'src/roles/models/roles.model';
     FilesService,
     UsersService,
     RolesService,
+    CategoriesService,
   ],
 })
 export class CartModule {}

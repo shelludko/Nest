@@ -25,7 +25,8 @@ import { Cart } from './cart/models/cart.model';
       envFilePath: `.${process.env.NODE_ENV}.env`,
     }),
     ServeStaticModule.forRoot({
-      rootPath: path.resolve(__dirname, '../src/', 'static'),
+      rootPath: path.resolve(__dirname, '../src/products/', 'static'),
+      exclude: ['/api*'],
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',

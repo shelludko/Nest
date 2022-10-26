@@ -29,8 +29,8 @@ export class CategoriesController {
 
   @ApiOperation({ summary: 'Get all categories' })
   @ApiResponse({ status: 200, type: Category })
-  @Roles(RolesList.SELLER, RolesList.CUSTOMER)
-  @UseGuards(RolesGuard, JwtAuthGuard)
+  // @Roles(RolesList.SELLER, RolesList.CUSTOMER)
+  // @UseGuards(RolesGuard, JwtAuthGuard)
   @Get()
   @HttpCode(200)
   async findAllProducts() {
@@ -39,8 +39,8 @@ export class CategoriesController {
 
   @ApiOperation({ summary: 'Get category' })
   @ApiResponse({ status: 200, type: Product })
-  @Roles(RolesList.SELLER, RolesList.CUSTOMER)
-  @UseGuards(RolesGuard, JwtAuthGuard)
+  // @Roles(RolesList.SELLER, RolesList.CUSTOMER)
+  // @UseGuards(RolesGuard, JwtAuthGuard)
   @Get(':id')
   @HttpCode(200)
   async findProduct(@Param('id') id: number) {

@@ -31,12 +31,22 @@ export class ProductController {
 
   @ApiOperation({ summary: 'Get all products' })
   @ApiResponse({ status: 200, type: Product })
-  @Roles(RolesList.ADMIN, RolesList.SELLER, RolesList.CUSTOMER)
-  @UseGuards(RolesGuard, JwtAuthGuard)
+  // @Roles(RolesList.ADMIN, RolesList.SELLER, RolesList.CUSTOMER)
+  // @UseGuards(RolesGuard, JwtAuthGuard)
   @Get()
   @HttpCode(200)
   async findAllProducts() {
     return await this.productService.findAllProducts();
+  }
+
+  @ApiOperation({ summary: 'Get all products by category' })
+  @ApiResponse({ status: 200, type: Product })
+  // @Roles(RolesList.ADMIN, RolesList.SELLER, RolesList.CUSTOMER)
+  // @UseGuards(RolesGuard, JwtAuthGuard)
+  @Get('category/:id')
+  @HttpCode(200)
+  async findProductsByCategory(@Param('id') id: number) {
+    return await this.productService.findProductsByCategory(id);
   }
 
   @ApiOperation({ summary: 'Get product' })
@@ -76,13 +86,14 @@ export class ProductController {
   async updateProduct(
     @Param('id') id: number,
     @Body() dto: UpdateProductDto,
+    @UploadedFile() image: Express.Multer.File,
     @Req() req,
   ) {
     const product = await this.productService.findProduct(id);
     if (!product) {
       throw new NotFoundException(PRODUCT_NOT_FOUND_ERROR);
     }
-    await this.productService.updateProduct(product.id, dto);
+    await this.productService.updateProduct(product.id, dto, image);
     return req.body;
   }
 
