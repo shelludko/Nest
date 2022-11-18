@@ -6,6 +6,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  Get,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -22,20 +23,30 @@ import { Cart } from './models/cart.model';
 export class CartController {
   constructor(private readonly cartService: CartService) {}
 
+  @ApiOperation({ summary: 'Get all items' })
+  @ApiResponse({ status: 200, type: Cart })
+  //  @Roles(RolesList.CUSTOMER)
+  //  @UseGuards(RolesGuard, JwtAuthGuard)
+  @Get('')
+  @HttpCode(200)
+  async findAllItems() {
+    return await this.cartService.findAllItems();
+  }
+
   @ApiOperation({ summary: 'Add item to cart' })
   @ApiResponse({ status: 201, type: Cart })
-  @Roles(RolesList.CUSTOMER)
-  @UseGuards(RolesGuard, JwtAuthGuard)
+//  @Roles(RolesList.CUSTOMER)
+//  @UseGuards(RolesGuard, JwtAuthGuard)
   @Post('add-item')
   @HttpCode(201)
-  async addItemToCart(@Body() dto: CartDto, @Req() req: any) {
-    return await this.cartService.addItem(dto, req.user.id);
+  async addItemToCart(@Body() dto: CartDto) {
+    return await this.cartService.addItem(dto);
   }
 
   @ApiOperation({ summary: 'Delete item from cart' })
   @ApiResponse({ status: 200, type: Cart })
-  @Roles(RolesList.CUSTOMER)
-  @UseGuards(RolesGuard, JwtAuthGuard)
+  // @Roles(RolesList.CUSTOMER)
+  // @UseGuards(RolesGuard, JwtAuthGuard)
   @Delete(':id')
   @HttpCode(200)
   async deleteItemFromCart(@Param('id') id: number) {

@@ -13,16 +13,15 @@ export class CartService {
     private userService: UsersService,
   ) {}
 
-  async addItem(dto: CartDto, id: number) {
+  async addItem(dto: CartDto) {
     const product = await this.productService.findProduct(dto.productId);
-    const user = await this.userService.getUserById(id);
+//    const user = await this.userService.getUserById(id);
     return await this.cartRepository.create({
       name: product.name,
       description: product.description,
-      quantity: dto.quantity,
-      totalPrice: dto.quantity * product.price,
+      totalPrice: product.price,
       productId: dto.productId,
-      userId: user.id,
+//      userId: user.id,
       image: product.image,
     });
   }

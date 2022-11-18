@@ -60,10 +60,10 @@ export class Cart extends Model<Cart, ICart> {
   productId: number;
 
   @ApiProperty({ example: 1, description: 'User ID' })
-  @ForeignKey(() => User)
+//  @ForeignKey(() => User)
   @Column({
     type: DataType.INTEGER,
-    allowNull: false,
+//    allowNull: false,
   })
   userId: number;
 
@@ -80,6 +80,6 @@ export class Cart extends Model<Cart, ICart> {
   @BelongsTo(() => Product)
   product: Product;
 
-  @BelongsTo(() => User)
-  user: User;
+//  @BelongsTo(() => User)
+//  user: User;
 }

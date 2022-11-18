@@ -1,6 +1,5 @@
 export class CartDto {
-  id: number;
-  quantity: number;
+//  id: number;
   productId: number;
-  userId: number;
+//  userId: number;
 }

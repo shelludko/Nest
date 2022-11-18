@@ -38,7 +38,7 @@ export class ProductController {
   async findAllProducts() {
     return await this.productService.findAllProducts();
   }
-
+    
   @ApiOperation({ summary: 'Get all products by category' })
   @ApiResponse({ status: 200, type: Product })
   // @Roles(RolesList.ADMIN, RolesList.SELLER, RolesList.CUSTOMER)

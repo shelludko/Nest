@@ -49,7 +49,7 @@ export class ProductService {
       where: {
         categoryId: category.id,
       },
-      order: [['id', 'DESC']],
+        order: [['id', 'DESC']],
     });
   }
 
