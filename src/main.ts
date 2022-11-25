@@ -12,6 +12,9 @@ async function start() {
   app.setGlobalPrefix('api');
   // app.useGlobalPipes(new ValidationPipe());
   app.use(cors({ origin: 'http://localhost:3000', optionsSuccessStatus: 200 }));
+  // app.use(
+  //   cors({ origin: 'https://shop.shelludko.com', optionsSuccessStatus: 200 }),
+  // );
 
   const config = new DocumentBuilder()
     .setTitle('NestJS')

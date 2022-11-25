@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - 7000:7000
+    depends_on:
+      - postgres
+    environment:
+      - DB_PORT=6000
+      - DB_HOST=localhost
+    restart: always
+
+  postgres:
+    image: postgres:latest
+    container_name: nestDb
+    hostname: nestDb
+    # volumes:
+    #   - database:/usr/src/app
+    environment:
+      POSTGRES_DB: nestDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '6000:6000'
+    restart: always

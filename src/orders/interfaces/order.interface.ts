@@ -4,5 +4,4 @@ export interface IOrder {
   totalPrice: number;
   createdDate: string;
   isPaid: boolean;
-  cartId: number;
 }

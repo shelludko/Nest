@@ -10,7 +10,6 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { Category } from '../../categories/models/categories.model';
 import { ProductCreationAttributes } from '../interfaces/product-create.interface';
-import { Cart } from 'src/cart/models/cart.model';
 
 @Table({ tableName: 'products' })
 export class Product extends Model<Product, ProductCreationAttributes> {
@@ -75,7 +74,4 @@ export class Product extends Model<Product, ProductCreationAttributes> {
 
   @BelongsTo(() => Category)
   category: Category;
-
-  @HasMany(() => Cart)
-  carts: Cart[];
 }
